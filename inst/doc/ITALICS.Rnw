@@ -1,0 +1,226 @@
+%\VignetteIndexEntry{ITALICS}
+%\VignetteDepends{}
+%\VignetteKeywords{GeneChip Mapping 100K and 500K Set Normalisation}
+%\VignettePackage{ITALICS}
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+
+\usepackage{amsmath}
+\usepackage[authoryear,round]{natbib}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{subfigure}
+\usepackage{verbatim}
+\geometry{verbose,letterpaper,tmargin=20mm,bmargin=20mm,lmargin=2.5cm,rmargin=2.5cm}
+%\SweaveOpts{echo=FALSE}
+
+\begin{document}
+\def\AffySNP{Affymetrix GeneChip Human Mapping}
+\def\NonRel{non-relevant}
+\def\BioNonRel{biologically non-relevant}
+\def\BioRel{biologically relevant}
+\def\quartet{$Quartet_{PM}$}
+\def\quartets{$Quartets_{PM}$}
+
+\title{\bf ITALICS package : GeneChip Mapping 100K and 500K Set Normalization}
+
+
+\author{Guillem Rigaill\,$^{\rm a,b,c}$, Philippe Hup\'e\,$^{\rm a,b,c,d}$, Emmanuel Barillot\,$^{\rm a,b,c}$}
+
+
+\maketitle
+
+\begin{center}
+
+a. Institut Curie, 26 rue d'Ulm, Paris, 75248 cedex 05, France
+
+b. INSERM, U900, Paris, F-75248 France
+
+c. Ecole des Mines de Paris, ParisTech, Fontainebleau, F-77300 France
+
+d. CNRS UMR144, Paris, F-75248 France
+
+italics@curie.fr
+
+http://bioinfo.curie.fr
+\end{center}
+
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+
+This document presents an overview of the {\tt ITALICS} package. This package is devoted to the normalisation of GeneChip Mapping 100K and 500K Set \citep{kennedy03} and implements the methodology described in \citep{ITALICS_2008}.
+
+\section{The ITALICS method}
+
+\AffySNP{} 100K and 500K Set allows the DNA copy number measurement of respectively $2 \times$ 50K and $2 \times$ 250K SNPs along the genome. 
+Their high density allows a precise localization of genomic alterations and makes them a powerful tool for cancer and copy number polymorphism study. As any other microarray technology, it is influenced by \NonRel{} sources of variation which need to be corrected. Moreover, the amplitude of variation induced by the \BioRel{} effect (i.e. the true copy number) and the \NonRel{} effects are similar, making it hard to correctly estimate the \NonRel{} effects without knowing the \BioRel{} effect.
+
+To address this problem, we have developed ITALICS, a normalization method that estimates both the biological and the \NonRel{} effects in an alternative and iterative way to accurately remove the non-relevant effects. We have compared our normalization with other existing and available methods (CNAT (Affymetrix Copy Number Analysis Tool), CNAG \cite{CNAG_2005} and GIM \cite{GIM_2005}). Our results based on several in-house datasets and one public dataset show that ITALICS outperforms these other methods \citep{ITALICS_2008}. 
+
+\subsubsection*{Technology}
+\begin{description}
+\item[\AffySNP{} 100K:] These chips allow the detection of DNA copy number alterations with a 25 Kb resolution. Two \AffySNP{} 50K Set chips are available corresponding to the XbaI and HindIII restriction enzymes. HindIII and XbaI chips share no SNPs in common and their combination provides the DNA copy number of more than 115,000 SNPs.
+\item[\AffySNP{} 500K:] These chips allow the detection of DNA copy number alterations with a 5 Kb resolution. Two \AffySNP{} 250K Set chips are available corresponding to the Sty and Nsp restriction enzymes. Sty and Nsp chips share no SNPs in common and their combination provides the DNA copy number of more than 500,000 SNPs.
+\end{description}
+Each allele of each SNP is represented by 10 perfect match (PM) probes and 10 mismatch (MM) probes. Probes may be forward- or reverse-oriented and they may be centered on the SNP position or offset by -4 to +4 base pairs. Therefore, all 10 PM probes of a SNP allele have a different DNA sequence. Probes are grouped by four in probe quartets: a PM and a MM probe for allele A and a PM and a MM probe for allele B. These four probes share the same orientation and offset.
+
+The \AffySNP{} assay is as follows. Genomic DNA is digested with a restriction endonuclease: either XbaI , HindIII, Sty or Nsp. Adaptors are ligated to all fragments. These fragments are amplified by PCR and then fragmented, biotin labeled and hybridized on the chip.
+
+
+\subsubsection*{Non-relevant sources of variation}
+ITALICS deals with known systematic sources of variation such as the GC-content of the \quartets{} ($QGC_{ij}$), the PCR amplified fragment length ($FL_{i}$) and the GC-content of the PCR amplified fragment ($FGC_{i}$) \citep{CNAG_2005,GIM_2005}. It also takes into account what we call the \quartet{} effect ($Q_{ij}$) and corresponds to the fact that some \quartets{} systematically have a small intensity while others tend to have a high intensity. 
+
+We also noticed that some \AffySNP{} chips suffer from spatial artifacts as it was already described by \cite{Neuvial_2006} on array CGH data. 
+
+Therefore, in order to eliminate most of the \NonRel{} effects while preserving most of the biological information, we propose an iterative and alternative estimation of the biological signal and \NonRel{} effects to normalize the data. During each iteration, ITALICS: 
+\begin{enumerate}
+	\item estimates the biological signal $CopyNb_{i}$ using the GLAD algorithm \citep{hupe04},
+	\item assuming the biological signal as known, it estimates the \NonRel{} effects $NonRel_{ij}$ on raw data using a multiple linear regression.
+\end{enumerate}
+
+After the last iteration, \quartets{} whose signal is poorly predicted by the multiple linear regression are flagged out. These \quartets{} correspond therefore to \quartets{} with abnormal values and are excluded from the final step where ITALICS estimates the biological effect $CopyNb_{i}$ using GLAD on the remaining normalized \quartets{}.
+
+\subsubsection*{Estimation of the \quartet{} effect}
+The \quartet{} effect was calculated as the mean of each \quartet{} on the 64 female chips of the Affymetrix reference data set \citep{affy_ref}.
+
+\section{Normalization of \AffySNP{} chips}
+\subsection{How to run ITALICS}
+
+<<echo=FALSE,print=FALSE>>=
+require(ITALICS)
+ITALICSDataPATH <- attr(as.environment(match("package:ITALICSData",search())),"path")
+load(paste(ITALICSDataPATH,"/data/snpInfo.RData", sep=""))
+load(paste(ITALICSDataPATH,"/data/quartetInfo.RData", sep=""))
+@
+To normalise a chip, you first need to load the chip. The ITALICS package reads a .CEL file. In the following example, 
+we will read the HF0844\_Xba.CEL of a public data set \citep{kotliarov_2006}.
+
+@
+<<echo=TRUE,print=FALSE>>=
+ITALICSDataPATH <- attr(as.environment(match("package:ITALICSData",search())),"path")
+filename <- paste(ITALICSDataPATH,"/data/HF0844_Xba.CEL", sep="")
+
+headdetails <- readCelHeader(filename[1])
+pkgname <- cleanPlatformName(headdetails[["chiptype"]])
+
+quartetEffectFile <- paste(ITALICSDataPATH,"/data/Xba.QuartetEffect.csv", sep="")
+quartetEffect <- read.table(quartetEffectFile, sep=";", header=TRUE)
+@
+\begin{verbatim}
+snpInfo <- getSnpInfo(pkgname)
+quartet <- getQuartet(pkgname, snpInfo)
+tmpExprs <- readCelIntensities(filename, indices=quartet$fid)
+quartet$quartetInfo$quartetLogRatio <- readQuartetCopyNb(tmpExprs)
+quartet$quartetInfo <- addInfo(quartet, quartetEffect)
+snpInfo <- fromQuartetToSnp(cIntensity="quartetLogRatio",
+          quartetInfo=quartet$quartetInfo, snpInfo=snpInfo)
+\end{verbatim}
+
+Now, you can use the ITALICS function as follows. By default, this will iterate ITALICS twice. During each iteration, both the copy number and the non-relevant effects are estimated. After each estimation of the non-relevant effects, observed quartet values are corrected. After the final iteration, badly predicted quartets are flagged. Then the normalized genomic profile is analyzed using GLAD.
+
+@
+<<echo=TRUE,print=FALSE>>=
+profilSNPXba <- ITALICS(quartet$quartetInfo, snpInfo,
+     formule="Smoothing+QuartetEffect+FL+I(FL^2)+I(FL^3)+GC+I(GC^2)+I(GC^3)")
+
+@
+The normalized and analyzed profile can then be seen using the \emph{plotProfile} function from the GLAD package.
+
+@
+\begin{figure}[!h]
+\begin{center}
+<<fig=TRUE,echo=TRUE,width=17,height=12>>=
+plotProfile(profilSNPXba, Smoothing="Smoothing")
+@
+\end{center}
+\caption{\label{Figure:Xba}Result of the ITALICS methodology on the HF08444 Xba chip.}
+\end{figure}
+
+\subsection{ITALICS options}
+\begin{description}
+  \item[confidence] the prediction interval used to flag quartets. A quartet with a value outside this prediction interval will be flagged.
+  \item[iteration] the number of ITALICS iteration.
+  \item[formule] a symbolic description of the term of the model. By default, it is : Smoothing + Quartet + FL + I(FL\textasciicircum{}2) + I(FL\textasciicircum{}3) + GC + I(GC\textasciicircum{}2) + I(GC\textasciicircum{}3) ). Smoothing corresponds to the copy number estimation, Quartet to the quartet effect, FL to the PCR amplified fragment length, GC to the quartet GC-content. For example if you don't want to take into account the PCR amplified fragment length effect, you should set \emph{formule} to Smoothing + Quartet + GC + I(GC\textasciicircum{}2) + I(GC\textasciicircum{}3)).
+  \item[amplicon] see the \emph{amplicon} parameter in the \emph{daglad} function
+  \item[deletion] see the \emph{deletion} parameter in the \emph{daglad} function
+  \item[deltaN] see the \emph{deltaN} parameter in the \emph{daglad} function
+  \item[forceGL] see the \emph{forceGL} parameter in the \emph{daglad} function
+  \item[...] other \emph{daglad} function parameters
+\end{description}
+\clearpage
+
+\subsection{The \emph{profileCGH} class}
+
+As in the GLAD package this class stores synthetic values related to each clone available onto the arrayCGH.  Objects profileCGH are composed of a list with the first element profileValues which is a data.frame with the following columns names:
+
+\begin{description}
+\item[LogRatio] Test over Reference log-ratio.
+\item[PosOrder] The rank position of each clone on the genome.
+\item[PosBase] The base position of each clone on the genome.
+\item[Chromosome] Chromosome name.
+\item[Clone] The name of the corresponding clone.
+\item[...] Other elements can be added.
+\end{description}
+
+LogRatio, Chromosome and PosOrder are compulsory.
+
+To create those objects you can use the function \emph{as.profileCGH}.
+
+
+\clearpage
+
+
+
+\section{Parameter tuning for ITALICS and sensitivity analysis to GLAD parameters}
+\subsection{Tested parameters}
+\paragraph{}
+\noindent{}ITALICS uses the GLAD algorithm (Hup\'e et al. 2004) to estimate the biological signal (the DNA copy number). 
+Therefore, ITALICS is influenced by the choice of GLAD parameters.
+In GLAD, the three important parameters for the segmentation process and therefore the biological signal estimation are:
+\begin{description}
+\item[param:] the penalty term used in the kernel function. Decreasing this parameter will lead to a higher number of identified breakpoints. For arrays experiments with very small signal-to-noise ratio, it is recommended to use a small value of \emph{param} like "d = 2" or even less.
+\item[qlambda:] the relative importance of geographical and statistical proximity in the segmentation process. A higher \emph{qlambda} will give more importance to the geographical proximity and therefore will allow the detection of smaller DNA copy number alterations.
+\item[bandwidth:] the number of iterations performed in the GLAD algorithm. The smaller the number of iterations, the faster GLAD runs. However, with less iterations the quality of the segmentation process is lower.
+\end{description}
+
+\paragraph{}
+To test how these three parameters influence ITALICS, we randomly selected 50 Xba chips among those that show DNA copy number alterations from the Kotliarov et al. (2006) dataset.
+We then normalized those 50 chips using various sets of parameters and then compared the quality criteria (see \cite{ITALICS_2008}, supplementary information)
+
+\subsection{Results and recommendations}
+\emph{Param}, \emph{qlambda} and \emph{bandwidth} have very little influence on the quality criteria (see \cite{ITALICS_2008}, supplementary information). 
+Therefore the quality criteria are not sensitive to GLAD parameters. Nevertheless, it is important to point out the fact that the number of breakpoints is influenced by the \emph{param} value: as can be seen on figure 2, the number of detected breakpoints by chip is a decreasing function of \emph{param}. \emph{Qlambda} and \emph{bandwidth} do not influence the number of breakpoints (data not shown). Thus, \emph{param} does not impact the overall dynamic of the signal but a smaller \emph{param} will allow the detection of more 
+alterations. For SNP chips with low signal-to-noise ratio, we therefore recommend to set \emph{param} to 2 or 1. Setting 
+\emph{param} to smaller values would drastically increase the number of false positive alterations detected. 
+
+Here are the default parameters we use:
+\begin{verbatim}
+ITALICS(confidence=0.95, iteration=2,  param=c(d=2), nbsigma=1, 
+amplicon=2.1, deletion=-3.5, deltaN=0.15, forceGL=c(-0.2,0.2))
+\end{verbatim}
+
+\paragraph{}
+\begin{center}
+
+\begin{figure}[!tpb]
+\includegraphics[width=8cm,height=12cm, angle=-90]{Bkp}
+\caption{Centered number of breakpoints (i.e. number of breakpoints minus the mean number of breakpoints over the 48 combinations by chip) detected as a function of the \emph{param} value. We can see that the number of detected breakpoints is a decreasing function of \emph{param}. Therefore a smaller \emph{param} allow the detection of smaller alterations.}
+\label{fig:02}
+\end{figure}
+\end{center}
+
+
+
+\clearpage
+
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{apalike}
+\bibliography{biblio}
+
+\end{document}
