@@ -14,8 +14,8 @@ This function use the pd.mapping50k.xba240, pd.mapping50k.hind240, pd.mapping250
   \item{pkgname}{the chip type  pd.mapping50k.xba240, pd.mapping50k.hind240, pd.mapping250k.sty or pd.mapping250k.nsp}
 }
 \value{
-  \item{Return a data.frame with five columns : fsetid, dbsnp_rs_id, Chr, X and fragment_length corresponding to the fsetid, the rs_id, the chromosome,
-the position on the chromosome and the PCR amplified fragment length respectively.} 
+  Return a data.frame with five columns : fsetid, dbsnp_rs_id, Chr, X and fragment_length corresponding to the fsetid, the rs_id, the chromosome,
+the position on the chromosome and the PCR amplified fragment length respectively.
 }
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
   visit our web-page \url{http://bioinfo.curie.fr}.}

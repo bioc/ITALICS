@@ -18,12 +18,10 @@ analyseCGH(data, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
   \item{...}{Other daglad parameters.}
 }
 \value{
-  \item{An object of class profileCGH.}
-	
+  An object of class profileCGH
 }
 \seealso{
   \code{\link[mva]{getModel}}}
-
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
   visit our web-page \url{http://bioinfo.curie.fr}.}
 

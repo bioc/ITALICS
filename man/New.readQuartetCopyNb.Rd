@@ -13,7 +13,7 @@ This function read the cel files and return the raw-value of each quartet = mean
   
 }
 \value{
-  \item{return a vector with the raw-value of each quartet} 
+  return a vector with the raw-value of each quartet
 }
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
   visit our web-page \url{http://bioinfo.curie.fr}.}

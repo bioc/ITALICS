@@ -27,7 +27,7 @@ ITALICS(quartetInfo, snpInfo, confidence=0.95, iteration=2,
   \item{...}{Other daglad parameters.}
 }
 \value{
-  \item{Return an object of class profileCGH} 
+  Return an object of class profileCGH
 }
 \examples{
 \dontrun{

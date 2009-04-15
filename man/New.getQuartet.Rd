@@ -15,9 +15,9 @@ This function use the pd.mapping50k.xba240, pd.mapping50k.hind240, pd.mapping250
   \item{snpInfo}{a data frame containing SNPs position along the genome}
 }
 \value{
-  \item{return a list with two fields. 
+  return a list with two fields. 
    fid : containing the position of each quartet on the CEL file. 
-   quartetInfo : a data fame containing the columns : fsetid, fid, FL (fragment length) and GC (content of the quartet)} 
+   quartetInfo : a data fame containing the columns : fsetid, fid, FL (fragment length) and GC (content of the quartet)
 }
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
   visit our web-page \url{http://bioinfo.curie.fr}.}

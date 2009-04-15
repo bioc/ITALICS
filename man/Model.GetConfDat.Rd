@@ -13,7 +13,7 @@ getConfDat(confidence, quartetInfo, model)
   \item{model}{The class lm object given by the function \code{getModel} }
 }
 \value{
-  \item{A data frame with the corrected intensity. Only goodly predicted probes are taken into account. SNP's with more than 8 badly predicted probes get a NA.} 
+  A data frame with the corrected intensity. Only goodly predicted probes are taken into account. SNP's with more than 8 badly predicted probes get a NA.
 }
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
   visit our web-page \url{http://bioinfo.curie.fr}.}

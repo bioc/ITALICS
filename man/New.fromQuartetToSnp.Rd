@@ -20,7 +20,7 @@ And return the snpInfo data.frame with the newly computed LogRatio.
   \item{nLog}{The position of the field which will be named LogRatio in the snpInfo data.frame. For example if cIntensity = c("a", "b") and you want b to be considered as the LogRatio you should set nLog=2}
 }
 \value{
-  \item{return the data.frame snpInfo with additionnal columns. } 
+  return the data.frame snpInfo with additionnal columns.
 }
 \examples{}
 \note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can

@@ -20,7 +20,7 @@ trainITALICS (dir,  amplicon=2.1, deletion=-3.5, deltaN=0.15, forceGL=c(-0.2,0.2
   \item{...}{Other daglad parameters.}
 }
 \value{
-  \item{a data.frame with two column fsetid and quartetEffect} 
+  a data.frame with two column fsetid and quartetEffect
 }
 
 \details{
