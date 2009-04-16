@@ -97,6 +97,7 @@ require(ITALICS)
 ITALICSDataPATH <- attr(as.environment(match("package:ITALICSData",search())),"path")
 load(paste(ITALICSDataPATH,"/data/snpInfo.RData", sep=""))
 load(paste(ITALICSDataPATH,"/data/quartetInfo.RData", sep=""))
+
 @
 To normalise a chip, you first need to load the chip. The ITALICS package reads a .CEL file. In the following example, 
 we will read the HF0844\_Xba.CEL of a public data set \citep{kotliarov_2006}.
