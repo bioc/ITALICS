@@ -4,7 +4,7 @@ ITALICS <- function(quartetInfo, snpInfo, confidence=0.95, iteration=2,
     if(iteration >=2){
 
     cat("####### FIRST ROUND #######\n")
-    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma)
+    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
     profilSNP <- profilSNP$profileValues
 
     quartetInfo <- fromSnpToQuartet(quartetInfo, profilSNP)
@@ -27,7 +27,7 @@ ITALICS <- function(quartetInfo, snpInfo, confidence=0.95, iteration=2,
     i <- 2
     while(i <= iteration-1){
         cat(paste("####### ROUND ",i," #######\n",sep=""))
-        profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma)
+        profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
         profilSNP <- profilSNP$profileValues
 
         quartetInfo <- fromSnpToQuartet(quartetInfo, profilSNP)
@@ -42,7 +42,7 @@ ITALICS <- function(quartetInfo, snpInfo, confidence=0.95, iteration=2,
         i <- i+1
     }
     cat("####### FINAL ROUND  #######\n")
-    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma)
+    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
     profilSNP <- profilSNP$profileValues
 
     quartetInfo <- fromSnpToQuartet(quartetInfo, profilSNP)
@@ -68,7 +68,7 @@ ITALICS <- function(quartetInfo, snpInfo, confidence=0.95, iteration=2,
 
     ## glad 3 analyse
     cat("####### ANALYSIS #######\n")
-    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma)
+    profilSNP <- analyseCGH(snpInfo, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
 
     return(profilSNP)
     }else{
