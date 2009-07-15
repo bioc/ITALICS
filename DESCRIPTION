@@ -9,4 +9,4 @@ Maintainer: Guillem Rigaill <italics@curie.fr>
 Description: A Method to normalize of Affymetrix GeneChip Human Mapping 100K and 500K set
 License: GPL
 URL: http://bioinfo.curie.fr
-biocViews: Microarray, DNACopyNumber
+biocViews: Microarray, CopyNumberVariants
