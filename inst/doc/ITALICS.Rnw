@@ -137,7 +137,8 @@ The normalized and analyzed profile can then be seen using the \emph{plotProfile
 \begin{figure}[!h]
 \begin{center}
 <<fig=TRUE,echo=TRUE,width=17,height=12>>=
-plotProfile(profilSNPXba, Smoothing="Smoothing")
+data(cytoband)
+plotProfile(profilSNPXba, Smoothing="Smoothing", cytoband=cytoband)
 @
 \end{center}
 \caption{\label{Figure:Xba}Result of the ITALICS methodology on the HF08444 Xba chip.}

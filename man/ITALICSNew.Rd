@@ -57,7 +57,8 @@ profilSNPHind <- ITALICS(quartet$quartetInfo, snpInfo,
     formule="Smoothing+QuartetEffect+FL+I(FL^2)+I(FL^3)+GC+I(GC^2)+I(GC^3)")
 
 ## plot the profile
-plotProfile(profilSNPHind, Smoothing="Smoothing", Bkp=TRUE)
+data(cytoband)
+plotProfile(profilSNPHind, Smoothing="Smoothing", Bkp=TRUE, cytoband = cytoband)
 }
 }
 \details{
