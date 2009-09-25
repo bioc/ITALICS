@@ -8,7 +8,9 @@
 analyseCGH(data, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
 }
 \arguments{
-  \item{data}{A data frame containing SNP's intensity, chromosome and position on the genome. data must have a Chr, X and LogRatio columns}
+  \item{data}{A data frame containing SNP's intensity, chromosome and
+    position on the genome. data must have a Chr, X and LogRatio
+    columns} 
   \item{amplicon}{see the amplicon parameter in the daglad function}
   \item{deletion}{see the deletion parameter in the daglad function}
   \item{deltaN}{see the deltaN parameter in the daglad function}
@@ -20,9 +22,9 @@ analyseCGH(data, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...)
 \value{
   An object of class profileCGH
 }
-\seealso{
-  \code{\link[mva]{getModel}}}
-\note{People interested in tools dealing with array CGH analysis and DNA copy number analysis can
+
+\note{People interested in tools dealing with array CGH analysis and DNA
+  copy number analysis can 
   visit our web-page \url{http://bioinfo.curie.fr}.}
 
 \author{Guillem Rigaill, \email{italics@curie.fr}.}
