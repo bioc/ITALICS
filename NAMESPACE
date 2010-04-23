@@ -1,3 +1,10 @@
+importMethodsFrom(DBI, dbGetQuery)
+importMethodsFrom(oligoClasses, db)
+importFrom(affxparser, readCelHeader, readCelIntensities)
+importFrom(GLAD, as.profileCGH, daglad)
+importFrom(oligo, basecontent, cleanPlatformName)
+importFrom(stats, aggregate, as.formula, lm, na.omit, predict.lm, sd)
 
-export("ITALICS", "analyseCGH", "getQuartet", "getResidu", "getCorrection", "getEffet", "getConfDat", "getModel", "readQuartetCopyNb", "getSnpInfo", "fromSnpToQuartet", "fromQuartetToSnp", "addInfo", "trainITALICS")
-
+export("ITALICS", "analyseCGH", "getQuartet", "getResidu", "getCorrection",
+       "getEffet", "getConfDat", "getModel", "readQuartetCopyNb", "getSnpInfo",
+       "fromSnpToQuartet", "fromQuartetToSnp", "addInfo", "trainITALICS")

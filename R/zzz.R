@@ -1,6 +1,6 @@
-.First.lib <- function(lib, pkg){
+.onAttach <- function(libname, pkgname){
 
-    message(paste("Welcome to ITALICS \n"
+    packageStartupMessage(paste("Welcome to ITALICS \n"
     ,"#################################################################################################\n"
     ,"# This implementation of the ITALICS algorithm was developped for bioconductor \n"
     ,"# This implementation is sligthly different \n than the original one which is available at : \n"
