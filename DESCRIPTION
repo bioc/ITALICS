@@ -1,5 +1,5 @@
 Package: ITALICS
-Version: 2.11.0
+Version: 2.11.1
 Date: 2008-05-14
 Title: ITALICS
 Depends: R (>= 2.0.0), GLAD, ITALICSData, oligo, affxparser, pd.mapping50k.xba240
@@ -8,6 +8,6 @@ Suggests: pd.mapping50k.hind240, pd.mapping250k.sty, pd.mapping250k.nsp
 Author: Guillem Rigaill, Philippe Hupe
 Maintainer: Guillem Rigaill <italics@curie.fr>
 Description: A Method to normalize of Affymetrix GeneChip Human Mapping 100K and 500K set
-License: GPL
+License: GPL-2
 URL: http://bioinfo.curie.fr
 biocViews: Microarray, CopyNumberVariants
