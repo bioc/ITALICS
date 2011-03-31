@@ -105,12 +105,12 @@ we will read the HF0844\_Xba.CEL of a public data set \citep{kotliarov_2006}.
 @
 <<echo=TRUE,print=FALSE>>=
 ITALICSDataPATH <- attr(as.environment(match("package:ITALICSData",search())),"path")
-filename <- paste(ITALICSDataPATH,"/data/HF0844_Xba.CEL", sep="")
+filename <- paste(ITALICSDataPATH,"/extdata/HF0844_Xba.CEL", sep="")
 
 headdetails <- readCelHeader(filename[1])
 pkgname <- cleanPlatformName(headdetails[["chiptype"]])
 
-quartetEffectFile <- paste(ITALICSDataPATH,"/data/Xba.QuartetEffect.csv", sep="")
+quartetEffectFile <- paste(ITALICSDataPATH,"/extdata/Xba.QuartetEffect.csv", sep="")
 quartetEffect <- read.table(quartetEffectFile, sep=";", header=TRUE)
 @
 \begin{verbatim}

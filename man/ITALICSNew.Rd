@@ -33,7 +33,7 @@ ITALICS(quartetInfo, snpInfo, confidence=0.95, iteration=2,
 \dontrun{
 ## step to get the path of the HF0844_Hind.CEL file
 ITALICSDataPATH <- attr(as.environment(match("package:ITALICSData",search())),"path")
-filename <- paste(ITALICSDataPATH,"/data/HF0844_Hind.CEL", sep="")
+filename <- paste(ITALICSDataPATH,"/extdata/HF0844_Hind.CEL", sep="")
 quartetEffectFile <- paste(ITALICSDataPATH,"/data/Hind.QuartetEffect.csv", sep="")
 
 ## load quartet effect
