@@ -1,7 +1,7 @@
 analyseCGH <- function(data, amplicon, deletion, deltaN, forceGL, param, nbsigma, ...){
 	ITALICSPATH <- attr(as.environment(match("package:ITALICS",search())),"path")
-	source(paste(ITALICSPATH,"/doc/tmp_filterBkp2.R", sep=""))
-	source(paste(ITALICSPATH,"/doc/tmp_filterBkpStep2.R", sep=""))
+	source(paste(ITALICSPATH,"/scripts/tmp_filterBkp2.R", sep=""))
+	source(paste(ITALICSPATH,"/scripts/tmp_filterBkpStep2.R", sep=""))
     ## format data in order to be used by as.profileCGH
     InputFields <- names(data)	
     data$Chromosome <- data$Chr
